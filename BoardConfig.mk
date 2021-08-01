@@ -133,14 +133,7 @@ TARGET_USES_LOGD := true
 TARGET_USES_MKE2FS := true
 TW_EXCLUDE_TWRPAPP := true
 TW_NO_SCREEN_BLANK := true
-TW_SKIP_COMPATIBILITY_CHECK := true
 TW_SCREEN_BLANK_ON_BOOT := true
 PLATFORM_VERSION := 16.1.0
 TW_OZIP_DECRYPT_KEY := "0000"
-TW_INCLUDE_LOGICAL := oppo_product oppo_engineering common_preload
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/etc/recovery.fstab
-
-# PBRP specific build flags
-PB_DISABLE_DEFAULT_TREBLE_COMP := true
-PB_TORCH_PATH := "/proc/qcom_flash"
-PB_TORCH_MAX_BRIGHTNESS := 1
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab

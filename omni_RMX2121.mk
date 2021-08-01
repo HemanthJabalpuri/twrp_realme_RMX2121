@@ -27,7 +27,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
 
 # Inherit from our custom product configuration
-$(call inherit-product, vendor/pb/config/common.mk)
+$(call inherit-product, vendor/omni/config/common.mk)
 
 PRODUCT_DEVICE := RMX2121
 PRODUCT_NAME := omni_RMX2121
@@ -39,9 +39,6 @@ PRODUCT_MANUFACTURER := Realme
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.build.security_patch=2099-12-31 \
     ro.treble.enabled=true
-
-PRODUCT_COPY_FILES += $(call find-copy-subdir-files,*,$(LOCAL_PATH)/recovery/root,recovery/root) \
-	$(LOCAL_PATH)/prebuilt/dtb:dtb.img
 
 PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.0-impl-mock \

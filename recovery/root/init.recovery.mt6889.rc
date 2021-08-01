@@ -3,15 +3,16 @@ import /system/etc/init/init.ago.rc
 on early-init 
      start adbd
 
-on fs
-    install_keyring
-    mkdir /mnt/vendor/persist 0777 system system
-    setprop crypto.ready 1
-    write /sys/class/power_supply/usb/otg_switch 1
-
 on init
     setprop sys.usb.configfs 1
     setprop sys.usb.ffs.aio_compat 1
+    mkdir /mnt/vendor/persist
+    mount ext4 /dev/block/by-name/persist /mnt/vendor/persist rw
+
+on fs
+    install_keyring
+    setprop crypto.ready 1
+    write /sys/class/power_supply/usb/otg_switch 1
 
 on fs && property:ro.debuggable=0
     # distinguish USB shoulde connect or not, i.e. CDP vs SDP
@@ -19,20 +20,20 @@ on fs && property:ro.debuggable=0
     # set charging free due to it wait for USB activation
     start adbd
 
-service keystore_auth /sbin/keystore_auth
+service keystore_auth /system/bin/keystore_auth
     oneshot
     user system
     group root
     disabled
     seclabel u:r:recovery:s0
 
-service keystore /sbin/keystore /tmp/misc/keystore
+service keystore /system/bin/keystore /tmp/misc/keystore
     user root
     group root drmrpc readproc
     disabled
     seclabel u:r:recovery:s0
 
-service mobicore /sbin/mcDriverDaemon --P1 /mnt/vendor/persist/mcRegistry \
+service mobicore /vendor/bin/mcDriverDaemon --P1 /mnt/vendor/persist/mcRegistry \
 	-r /vendor/app/mcRegistry/06090000000000000000000000000000.drbin \
 	-r /vendor/app/mcRegistry/020f0000000000000000000000000000.drbin \
 	-r /vendor/app/mcRegistry/05120000000000000000000000000000.drbin \
@@ -58,19 +59,19 @@ service mobicore /sbin/mcDriverDaemon --P1 /mnt/vendor/persist/mcRegistry \
     seclabel u:r:recovery:s0
 
 #Add for OPPO FBE
-service hal_cryptoeng_oppo /sbin/vendor.oppo.hardware.cryptoeng@1.0-service
+service hal_cryptoeng_oppo /system/bin/vendor.oppo.hardware.cryptoeng@1.0-service
     user root
     group root drmrpc
     disabled
     seclabel u:r:recovery:s0
 
-service keymaster-4-0 /sbin/android.hardware.keymaster@4.0-service.trustonic
+service keymaster-4-0 /system/bin/android.hardware.keymaster@4.0-service.trustonic
     user root
     group root drmrpc
     disabled
     seclabel u:r:recovery:s0
 
-service gatekeeper-1-0 /sbin/android.hardware.gatekeeper@1.0-service
+service gatekeeper-1-0 /system/bin/android.hardware.gatekeeper@1.0-service
     user root
     group root
     disabled

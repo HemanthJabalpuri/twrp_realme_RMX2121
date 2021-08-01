@@ -1,0 +1,19 @@
+/boot            emmc    /dev/block/platform/bootdevice/by-name/boot
+/recovery        emmc    /dev/block/platform/bootdevice/by-name/recovery           flags=backup
+/cache           ext4    /dev/block/platform/bootdevice/by-name/cache              flags=backup
+/persist         ext4    /dev/block/platform/bootdevice/by-name/persist            flags=backup
+/vbmeta          emmc    /dev/block/platform/bootdevice/by-name/vbmeta             flags=backup;flashimg
+/dtbo            emmc    /dev/block/platform/bootdevice/by-name/dtbo               flags=backup
+
+# MediaTek partition
+/logo            emmc    /dev/block/platform/bootdevice/by-name/logo               flags=backup
+/nvdata          ext4    /dev/block/platform/bootdevice/by-name/nvdata             flags=backup
+/nvram           emmc    /dev/block/platform/bootdevice/by-name/nvram              flags=backup
+/proinfo         emmc    /dev/block/platform/bootdevice/by-name/proinfo            flags=backup
+/protect_f       ext4    /dev/block/platform/bootdevice/by-name/protect1           flags=backup
+/protect_s       ext4    /dev/block/platform/bootdevice/by-name/protect2           flags=backup
+/tee1            emmc    /dev/block/platform/bootdevice/by-name/tee1               flags=backup
+/tee2            emmc    /dev/block/platform/bootdevice/by-name/tee2               flags=backup
+
+# USB OTG
+/usb-otg         auto    /dev/block/sdd1 /dev/block/sdd                            flags=storage;wipeingui;removable;fsflags="utf8"
